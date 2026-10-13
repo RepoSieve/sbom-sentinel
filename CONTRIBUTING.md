@@ -16,6 +16,60 @@ Good daily tasks include:
 
 Avoid large unreviewed code drops.
 
+## Beginner Git Workflow
+
+Use this exact flow when starting work.
+
+### Start from latest main
+
+```bash
+git checkout main
+git pull origin main
+```
+
+### Create your task branch
+
+```bash
+git checkout -b issue-2-cyclonedx-parser
+```
+
+Replace the branch name with your issue number and task name.
+
+### Check your changes before commit
+
+```bash
+git status
+git diff
+```
+
+### Run checks
+
+```bash
+PYTHONPATH=src python3 -m unittest discover -s tests
+PYTHONPATH=src python3 -m sbom_sentinel --help
+```
+
+### Commit and push
+
+```bash
+git add <files-you-changed>
+git commit -m "Short description of your task"
+git push -u origin issue-2-cyclonedx-parser
+```
+
+### Keep your branch updated
+
+If someone else merged work before your PR is merged:
+
+```bash
+git checkout main
+git pull origin main
+git checkout issue-2-cyclonedx-parser
+git merge main
+```
+
+If conflicts appear, ask for help before changing files randomly.
+
 ## Branch Naming
 
 Use the issue number and a short task name:

@@ -28,6 +28,161 @@ investigation priority.
 The repository now starts with a lightweight Python project skeleton so
 the team can work through small reviewed pull requests.
 
+## Start Here For Team Members
+
+If you are new to GitHub pull requests, follow this process every day.
+Do not work directly on `main`.
+
+### 1. Get the latest project code
+
+Run this before starting any task:
+
+```bash
+git checkout main
+git pull origin main
+```
+
+This makes sure your local code has the latest work from the team.
+
+### 2. Pick one small task
+
+Open the GitHub issue assigned to you and choose only one checklist item.
+One task should be small enough to finish in a day.
+
+Examples:
+
+- Create one parser function.
+- Add one test fixture.
+- Add one OSV API helper.
+- Add one ranking rule.
+- Update one documentation file.
+
+### 3. Create a branch for that task
+
+Create a new branch from the latest `main`:
+
+```bash
+git checkout -b issue-2-cyclonedx-parser
+```
+
+Use this naming style:
+
+```text
+issue-<issue-number>-short-task-name
+```
+
+Examples:
+
+```text
+issue-2-cyclonedx-parser
+issue-4-osv-client
+issue-3-ranking-score
+issue-5-demo-command
+```
+
+### 4. Make your changes
+
+Edit only the files needed for your task. Avoid changing unrelated files.
+
+After editing, check what changed:
+
+```bash
+git status
+git diff
+```
+
+### 5. Run the project checks
+
+Run the current smoke test:
+
+```bash
+PYTHONPATH=src python3 -m unittest discover -s tests
+```
+
+Run the CLI:
+
+```bash
+PYTHONPATH=src python3 -m sbom_sentinel --help
+```
+
+If your task adds a new command, include that command in your PR.
+
+### 6. Commit your work
+
+Add and commit only your task files:
+
+```bash
+git add <files-you-changed>
+git commit -m "Add CycloneDX parser skeleton"
+```
+
+Good commit messages are short and specific.
+
+### 7. Push your branch
+
+```bash
+git push -u origin issue-2-cyclonedx-parser
+```
+
+GitHub will show a link to create a pull request.
+
+### 8. Create the pull request
+
+Open a PR from your branch into `main`.
+
+Fill the PR template fully:
+
+- What changed
+- Why
+- Linked issue
+- How to test
+- Expected output
+- Known limitations
+
+Do not leave the template blank.
+
+### 9. After review
+
+If the mentor asks for changes:
+
+```bash
+git checkout issue-2-cyclonedx-parser
+```
+
+Make the fix, run tests again, then:
+
+```bash
+git add <files-you-changed>
+git commit -m "Address review feedback"
+git push
+```
+
+The PR updates automatically.
+
+### 10. If `main` changed while you were working
+
+Before continuing work, update your branch with the latest `main`:
+
+```bash
+git checkout main
+git pull origin main
+git checkout issue-2-cyclonedx-parser
+git merge main
+```
+
+If Git reports conflicts, stop and ask for help before guessing.
+
+### Daily rule
+
+Each member should aim for:
+
+- one small task
+- one branch
+- one pull request
+- one issue checklist update
+
+Small PRs are easier to review and safer to merge.
+
 ### Setup
 
 ```bash
