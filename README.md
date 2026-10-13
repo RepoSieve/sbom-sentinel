@@ -315,6 +315,120 @@ source .venv/bin/activate
 python -m pip install -e .
 ```
 
+## How To Run The Current Skeleton
+
+The current project is a skeleton. It does not yet parse SBOMs, call OSV,
+or rank vulnerabilities. For now, students should verify that the base
+package, CLI, test setup, and demo script run successfully.
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/RepoSieve/sbom-sentinel.git
+cd sbom-sentinel
+```
+
+If the repository is already cloned, get the latest code:
+
+```bash
+git checkout main
+git pull origin main
+```
+
+### 2. Create and activate a virtual environment
+
+macOS/Linux:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+Windows PowerShell:
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+### 3. Install the project in editable mode
+
+```bash
+python -m pip install -e .
+```
+
+If `python` is not available, use:
+
+```bash
+python3 -m pip install -e .
+```
+
+### 4. Run the CLI help command
+
+```bash
+python -m sbom_sentinel --help
+```
+
+Expected output:
+
+```text
+usage: sbom_sentinel [-h] [--version]
+```
+
+### 5. Run the version command
+
+```bash
+python -m sbom_sentinel --version
+```
+
+Expected output:
+
+```text
+0.1.0
+```
+
+### 6. Run the smoke tests
+
+```bash
+PYTHONPATH=src python -m unittest discover -s tests
+```
+
+Expected output:
+
+```text
+Ran 1 test
+
+OK
+```
+
+On Windows PowerShell:
+
+```powershell
+$env:PYTHONPATH="src"
+python -m unittest discover -s tests
+```
+
+### 7. Run the demo script
+
+```bash
+scripts/run_demo.sh
+```
+
+Expected behavior: the script prints the current CLI help text.
+
+### Current skeleton checklist
+
+Before starting feature work, each student should confirm:
+
+- [ ] Repository is cloned locally.
+- [ ] Latest `main` is pulled.
+- [ ] Virtual environment is active.
+- [ ] Project installs with `pip install -e .`.
+- [ ] CLI help command runs.
+- [ ] Version command prints `0.1.0`.
+- [ ] Smoke test passes.
+- [ ] Demo script runs.
+
 ### Run the placeholder CLI
 
 ```bash
