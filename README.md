@@ -23,6 +23,44 @@ investigation priority.
 > dashboard. Automated repository scanning and continuous integrations
 > are considered extensions.
 
+## Current Engineering Base
+
+The repository now starts with a lightweight Python project skeleton so
+the team can work through small reviewed pull requests.
+
+### Setup
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -e .
+```
+
+### Run the placeholder CLI
+
+```bash
+python -m sbom_sentinel --help
+python -m sbom_sentinel --version
+```
+
+### Run smoke tests
+
+```bash
+PYTHONPATH=src python -m unittest discover -s tests
+```
+
+### Development workflow
+
+Use the SDLC and PR guidance in:
+
+- `CONTRIBUTING.md`
+- `docs/sdlc.md`
+- `docs/pr_guidelines.md`
+- `.github/pull_request_template.md`
+
+Each student should complete one small task per day and open one focused
+pull request when code or documentation changes.
+
 ------------------------------------------------------------------------
 
 ## Table of Contents
