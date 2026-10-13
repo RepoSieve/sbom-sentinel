@@ -20,6 +20,27 @@ Avoid large unreviewed code drops.
 
 Use this exact flow when starting work.
 
+## Feature Branches And Bugfix Branches
+
+Use a feature branch when adding new behavior:
+
+```bash
+git checkout main
+git pull origin main
+git checkout -b feature/issue-2-cyclonedx-parser
+```
+
+Use a bugfix branch when fixing broken behavior:
+
+```bash
+git checkout main
+git pull origin main
+git checkout -b bugfix/issue-12-osv-timeout
+```
+
+Do not mix feature work and bug fixes in the same branch unless the
+issue explicitly asks for both.
+
 ### Start from latest main
 
 ```bash
@@ -30,7 +51,7 @@ git pull origin main
 ### Create your task branch
 
 ```bash
-git checkout -b issue-2-cyclonedx-parser
+git checkout -b feature/issue-2-cyclonedx-parser
 ```
 
 Replace the branch name with your issue number and task name.
@@ -54,7 +75,7 @@ PYTHONPATH=src python3 -m sbom_sentinel --help
 ```bash
 git add <files-you-changed>
 git commit -m "Short description of your task"
-git push -u origin issue-2-cyclonedx-parser
+git push -u origin feature/issue-2-cyclonedx-parser
 ```
 
 ### Keep your branch updated
@@ -64,11 +85,103 @@ If someone else merged work before your PR is merged:
 ```bash
 git checkout main
 git pull origin main
-git checkout issue-2-cyclonedx-parser
+git checkout feature/issue-2-cyclonedx-parser
 git merge main
 ```
 
 If conflicts appear, ask for help before changing files randomly.
+
+### Merge vs rebase
+
+For beginners, prefer merging latest `main` into your branch:
+
+```bash
+git checkout main
+git pull origin main
+git checkout feature/issue-2-cyclonedx-parser
+git merge main
+```
+
+Rebase is cleaner but easier to misuse:
+
+```bash
+git checkout main
+git pull origin main
+git checkout feature/issue-2-cyclonedx-parser
+git rebase main
+```
+
+Use rebase only on your own branch. If a rebase conflict becomes
+confusing, cancel it:
+
+```bash
+git rebase --abort
+```
+
+After a successful rebase, update your GitHub branch with:
+
+```bash
+git push --force-with-lease
+```
+
+Never force-push to `main`.
+
+### Conflict resolution basics
+
+Conflict markers look like this:
+
+```text
+<your branch version marker>
+your branch version
+<separator marker>
+main branch version
+<main branch version marker>
+```
+
+Resolve conflicts by keeping the correct final code and deleting the
+marker lines.
+
+For merge conflicts:
+
+```bash
+git status
+# edit conflicted files
+PYTHONPATH=src python3 -m unittest discover -s tests
+git add <fixed-files>
+git commit
+git push
+```
+
+For rebase conflicts:
+
+```bash
+git status
+# edit conflicted files
+PYTHONPATH=src python3 -m unittest discover -s tests
+git add <fixed-files>
+git rebase --continue
+git push --force-with-lease
+```
+
+If you are unsure which version is correct, stop and ask for review.
+
+## Command Cheat Sheet
+
+| Command | Usage |
+| --- | --- |
+| `git status` | Shows changed files and current branch. |
+| `git branch` | Lists local branches. |
+| `git checkout main` | Switches to `main`. |
+| `git pull origin main` | Gets the latest code from GitHub. |
+| `git checkout -b <branch>` | Creates and switches to a new branch. |
+| `git diff` | Shows exact line changes before commit. |
+| `git add <file>` | Stages selected files for commit. |
+| `git commit -m "message"` | Saves staged changes locally. |
+| `git push -u origin <branch>` | Uploads your branch to GitHub. |
+| `git merge main` | Brings latest `main` into your branch. |
+| `git rebase main` | Replays your branch on top of latest `main`. |
+| `git rebase --abort` | Cancels a rebase in progress. |
+| `git log --oneline --graph --decorate --all` | Shows commit history visually. |
 
 ## Branch Naming
 
