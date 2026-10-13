@@ -28,6 +28,285 @@ investigation priority.
 The repository now starts with a lightweight Python project skeleton so
 the team can work through small reviewed pull requests.
 
+## Start Here For Team Members
+
+If you are new to GitHub pull requests, follow this process every day.
+Do not work directly on `main`.
+
+### Feature work vs bug fix work
+
+Use the same Git flow for both features and bugs. The difference is the
+branch name, issue type, and PR explanation.
+
+For a new feature:
+
+```bash
+git checkout main
+git pull origin main
+git checkout -b feature/issue-2-cyclonedx-parser
+```
+
+For a bug fix:
+
+```bash
+git checkout main
+git pull origin main
+git checkout -b bugfix/issue-12-osv-timeout
+```
+
+Use `feature/...` when adding new behavior. Use `bugfix/...` when fixing
+something that is already supposed to work.
+
+### 1. Get the latest project code
+
+Run this before starting any task:
+
+```bash
+git checkout main
+git pull origin main
+```
+
+This makes sure your local code has the latest work from the team.
+
+### 2. Pick one small task
+
+Open the GitHub issue assigned to you and choose only one checklist item.
+One task should be small enough to finish in a day.
+
+Examples:
+
+- Create one parser function.
+- Add one test fixture.
+- Add one OSV API helper.
+- Add one ranking rule.
+- Update one documentation file.
+
+### 3. Create a branch for that task
+
+Create a new branch from the latest `main`:
+
+```bash
+git checkout -b feature/issue-2-cyclonedx-parser
+```
+
+Use this naming style:
+
+```text
+feature/issue-<issue-number>-short-task-name
+bugfix/issue-<issue-number>-short-task-name
+```
+
+Examples:
+
+```text
+feature/issue-2-cyclonedx-parser
+feature/issue-4-osv-client
+feature/issue-3-ranking-score
+bugfix/issue-5-demo-command
+```
+
+### 4. Make your changes
+
+Edit only the files needed for your task. Avoid changing unrelated files.
+
+After editing, check what changed:
+
+```bash
+git status
+git diff
+```
+
+Use `git status` to see which files changed. Use `git diff` to review
+the exact lines before committing.
+
+### 5. Run the project checks
+
+Run the current smoke test:
+
+```bash
+PYTHONPATH=src python3 -m unittest discover -s tests
+```
+
+Run the CLI:
+
+```bash
+PYTHONPATH=src python3 -m sbom_sentinel --help
+```
+
+If your task adds a new command, include that command in your PR.
+
+### 6. Commit your work
+
+Add and commit only your task files:
+
+```bash
+git add <files-you-changed>
+git commit -m "Add CycloneDX parser skeleton"
+```
+
+Good commit messages are short and specific.
+
+### 7. Push your branch
+
+```bash
+git push -u origin feature/issue-2-cyclonedx-parser
+```
+
+GitHub will show a link to create a pull request.
+
+### 8. Create the pull request
+
+Open a PR from your branch into `main`.
+
+Fill the PR template fully:
+
+- What changed
+- Why
+- Linked issue
+- How to test
+- Expected output
+- Known limitations
+
+Do not leave the template blank.
+
+### 9. After review
+
+If the mentor asks for changes:
+
+```bash
+git checkout feature/issue-2-cyclonedx-parser
+```
+
+Make the fix, run tests again, then:
+
+```bash
+git add <files-you-changed>
+git commit -m "Address review feedback"
+git push
+```
+
+The PR updates automatically.
+
+### 10. If `main` changed while you were working
+
+Before continuing work, update your branch with the latest `main`.
+
+Recommended beginner-safe option: merge `main` into your branch.
+
+```bash
+git checkout main
+git pull origin main
+git checkout feature/issue-2-cyclonedx-parser
+git merge main
+```
+
+If Git reports conflicts, stop and ask for help before guessing.
+
+Advanced option: rebase your branch on top of latest `main`.
+
+```bash
+git checkout main
+git pull origin main
+git checkout feature/issue-2-cyclonedx-parser
+git rebase main
+```
+
+Use rebase only if you are comfortable with Git. If conflicts happen
+during rebase, ask for help. To cancel a rebase:
+
+```bash
+git rebase --abort
+```
+
+### 11. How to handle merge conflicts
+
+A conflict means Git found two changes in the same part of a file and
+needs a human decision.
+
+Conflict markers look like this:
+
+```text
+<your branch version marker>
+your branch version
+<separator marker>
+main branch version
+<main branch version marker>
+```
+
+When this happens:
+
+1. Read both versions carefully.
+2. Keep the correct final version.
+3. Delete the conflict marker lines.
+4. Run tests again.
+5. Commit the conflict fix.
+
+For a merge conflict:
+
+```bash
+git status
+# edit conflicted files
+PYTHONPATH=src python3 -m unittest discover -s tests
+git add <fixed-files>
+git commit
+git push
+```
+
+For a rebase conflict:
+
+```bash
+git status
+# edit conflicted files
+PYTHONPATH=src python3 -m unittest discover -s tests
+git add <fixed-files>
+git rebase --continue
+git push --force-with-lease
+```
+
+Only use `--force-with-lease` after a rebase on your own branch. Never
+force-push to `main`.
+
+### 12. Useful Git commands
+
+| Command | Usage |
+| --- | --- |
+| `git status` | Shows changed files and current branch. |
+| `git branch` | Lists local branches. |
+| `git checkout main` | Switches to `main`. |
+| `git pull origin main` | Gets the latest code from GitHub. |
+| `git checkout -b <branch>` | Creates and switches to a new branch. |
+| `git diff` | Shows exact line changes before commit. |
+| `git add <file>` | Stages selected files for commit. |
+| `git commit -m "message"` | Saves staged changes locally. |
+| `git push -u origin <branch>` | Uploads your branch to GitHub. |
+| `git merge main` | Brings latest `main` into your branch. |
+| `git rebase main` | Replays your branch on top of latest `main`. |
+| `git rebase --abort` | Cancels a rebase in progress. |
+| `git log --oneline --graph --decorate --all` | Shows commit history visually. |
+
+### 13. Best practices
+
+- Always start from latest `main`.
+- Never commit directly to `main`.
+- One issue checklist item should become one small PR.
+- Keep feature branches and bugfix branches separate.
+- Run tests before pushing.
+- Read your own `git diff` before committing.
+- Do not include unrelated file changes.
+- Write clear PR descriptions so the mentor can review quickly.
+- Ask before resolving conflicts if you are unsure.
+
+### Daily rule
+
+Each member should aim for:
+
+- one small task
+- one branch
+- one pull request
+- one issue checklist update
+
+Small PRs are easier to review and safer to merge.
+
 ### Setup
 
 ```bash
