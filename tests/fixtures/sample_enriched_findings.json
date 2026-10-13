@@ -1,0 +1,11 @@
+[
+  {
+    "package_name": "sample-package",
+    "version": "1.0.0",
+    "ecosystem": "npm",
+    "vulnerability_id": "OSV-EXAMPLE-1",
+    "summary": "Example vulnerability record for ranking tests.",
+    "severity": "HIGH",
+    "evidence_status": "found"
+  }
+]
