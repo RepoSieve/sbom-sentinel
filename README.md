@@ -317,9 +317,9 @@ python -m pip install -e .
 
 ## How To Run The Current Skeleton
 
-The current project is a skeleton. It does not yet parse SBOMs, call OSV,
-or rank vulnerabilities. For now, students should verify that the base
-package, CLI, test setup, and demo script run successfully.
+The current project is a skeleton plus the first OSV enrichment slice.
+It does not yet parse SBOMs or rank vulnerabilities. Students can verify
+the base package, CLI, tests, and enrichment command.
 
 ### 1. Clone the repository
 
@@ -369,10 +369,10 @@ python3 -m pip install -e .
 python -m sbom_sentinel --help
 ```
 
-Expected output:
+Expected output includes the global flags and the `enrich` subcommand:
 
 ```text
-usage: sbom_sentinel [-h] [--version]
+usage: sbom_sentinel [-h] [--version] {enrich} ...
 ```
 
 ### 5. Run the version command
@@ -396,10 +396,12 @@ PYTHONPATH=src python -m unittest discover -s tests
 Expected output:
 
 ```text
-Ran 1 test
+Ran N tests
 
 OK
 ```
+
+The suite now includes package import smoke tests and OSV enrichment tests.
 
 On Windows PowerShell:
 
@@ -408,7 +410,22 @@ $env:PYTHONPATH="src"
 python -m unittest discover -s tests
 ```
 
-### 7. Run the demo script
+### 7. Run OSV enrichment against sample parser output
+
+```bash
+PYTHONPATH=src python3 -m sbom_sentinel enrich \
+  --input tests/fixtures/sample_packages.json \
+  --output data/outputs/enriched.json \
+  --cache-dir data/cache/osv
+```
+
+The first run calls `https://api.osv.dev/v1/query`. Later runs reuse `data/cache/osv`. Use `--offline` after a successful live run if the network is unavailable.
+
+Expected behavior: JSON findings with `evidence_status` values such as `found`, `not_found`, `unknown`, and `unsupported_ecosystem`. Missing evidence is marked unknown or error, never silent-safe.
+
+See `docs/osv_enrichment.md` for request/response and cache details.
+
+### 8. Run the demo script
 
 ```bash
 scripts/run_demo.sh

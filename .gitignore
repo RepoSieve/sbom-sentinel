@@ -7,3 +7,5 @@ build/
 *.egg-info/
 data/outputs/*
 !data/outputs/.gitkeep
+data/cache/*
+!data/cache/.gitkeep

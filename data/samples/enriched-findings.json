@@ -1,0 +1,52 @@
+[
+  {
+    "package_name": "lodash",
+    "version": "4.17.20",
+    "ecosystem": "npm",
+    "vulnerability_id": "GHSA-35jh-r3h4-6jhm",
+    "aliases": ["CVE-2021-23337"],
+    "summary": "Command Injection in lodash",
+    "severity": "HIGH",
+    "evidence_status": "found",
+    "purl": "pkg:npm/lodash@4.17.20",
+    "bom_ref": "pkg:npm/lodash@4.17.20",
+    "source": "osv",
+    "cache_hit": false,
+    "affected_evidence": {
+      "package_name": "lodash",
+      "ecosystem": "npm",
+      "purl": "pkg:npm/lodash",
+      "ranges": [
+        {
+          "type": "SEMVER",
+          "events": [{"introduced": "0"}, {"fixed": "4.17.21"}]
+        }
+      ]
+    },
+    "source_metadata": {
+      "osv_ecosystem": "npm",
+      "published": "2021-02-15T00:00:00Z",
+      "modified": "2021-02-15T00:00:00Z",
+      "schema_version": null
+    }
+  },
+  {
+    "package_name": "left-pad",
+    "version": "1.3.0",
+    "ecosystem": "npm",
+    "vulnerability_id": null,
+    "aliases": [],
+    "summary": "OSV returned no vulnerabilities for this package version.",
+    "severity": "UNKNOWN",
+    "evidence_status": "not_found",
+    "purl": "pkg:npm/left-pad@1.3.0",
+    "bom_ref": "pkg:npm/left-pad@1.3.0",
+    "source": "osv",
+    "cache_hit": false,
+    "affected_evidence": null,
+    "source_metadata": {
+      "osv_ecosystem": "npm",
+      "vuln_count": 0
+    }
+  }
+]

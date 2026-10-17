@@ -38,9 +38,22 @@ These contracts keep work between team members compatible.
   "aliases": ["CVE-EXAMPLE-1"],
   "summary": "Example vulnerability summary",
   "severity": "HIGH",
-  "evidence_status": "found"
+  "evidence_status": "found",
+  "purl": "pkg:npm/example@1.0.0",
+  "bom_ref": "pkg:npm/example@1.0.0",
+  "source": "osv",
+  "cache_hit": false,
+  "affected_evidence": {
+    "package_name": "example",
+    "ecosystem": "npm"
+  },
+  "source_metadata": {
+    "osv_ecosystem": "npm"
+  }
 }
 ```
+
+Enrichment emits one finding per OSV vulnerability. Packages with no OSV records emit a single finding with `vulnerability_id` set to `null` and `evidence_status` set to `not_found`. That is not a proof of safety.
 
 ## Ranked Finding
 
